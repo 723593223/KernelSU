@@ -398,6 +398,9 @@ private fun InfoCard() {
                 Text(text = content, style = MaterialTheme.typography.bodyMedium)
             }
 
+            InfoCardItem(stringResource(R.string.home_fingerprint), Build.FINGERPRINT)
+
+            Spacer(Modifier.height(16.dp))
             InfoCardItem(stringResource(R.string.home_kernel), uname.release)
 
             Spacer(Modifier.height(16.dp))
@@ -406,9 +409,6 @@ private fun InfoCard() {
                 stringResource(R.string.home_manager_version),
                 "${managerVersion.first} (${managerVersion.second})"
             )
-
-            Spacer(Modifier.height(16.dp))
-            InfoCardItem(stringResource(R.string.home_fingerprint), Build.FINGERPRINT)
 
             Spacer(Modifier.height(16.dp))
             InfoCardItem(stringResource(R.string.home_selinux_status), getSELinuxStatus())
