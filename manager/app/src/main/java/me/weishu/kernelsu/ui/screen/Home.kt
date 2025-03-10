@@ -27,6 +27,8 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.core.content.pm.PackageInfoCompat
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
@@ -96,7 +98,6 @@ fun HomeScreen(navigator: DestinationsNavigator) {
             }
             InfoCard()
             DonateCard()
-            LearnMoreCard()
             Spacer(Modifier)
         }
     }
@@ -328,34 +329,6 @@ fun WarningCard(
 }
 
 @Composable
-fun LearnMoreCard() {
-    val uriHandler = LocalUriHandler.current
-    val url = stringResource(R.string.home_learn_kernelsu_url)
-
-    ElevatedCard {
-
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .clickable {
-                uriHandler.openUri(url)
-            }
-            .padding(24.dp), verticalAlignment = Alignment.CenterVertically) {
-            Column {
-                Text(
-                    text = stringResource(R.string.home_learn_kernelsu),
-                    style = MaterialTheme.typography.titleSmall
-                )
-                Spacer(Modifier.height(4.dp))
-                Text(
-                    text = stringResource(R.string.home_click_to_learn_kernelsu),
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
-        }
-    }
-}
-
-@Composable
 fun DonateCard() {
     val uriHandler = LocalUriHandler.current
 
@@ -363,11 +336,8 @@ fun DonateCard() {
 
         Row(modifier = Modifier
             .fillMaxWidth()
-            .clickable {
-                uriHandler.openUri("https://patreon.com/weishu")
-            }
             .padding(24.dp), verticalAlignment = Alignment.CenterVertically) {
-            Column {
+            Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = stringResource(R.string.home_support_title),
                     style = MaterialTheme.typography.titleSmall
@@ -377,6 +347,25 @@ fun DonateCard() {
                     text = stringResource(R.string.home_support_content),
                     style = MaterialTheme.typography.bodyMedium
                 )
+                Spacer(Modifier.height(1.dp))
+                Text(
+                    text = stringResource(R.string.home_click_to_learn_kernelsu),
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+            Row(horizontalArrangement = Arrangement.spacedBy(1.dp)) {
+                IconButton(onClick = { uriHandler.openUri("https://patreon.com/weishu") }) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_patreon),
+                        contentDescription = null,
+                    )
+                }
+                IconButton(onClick = { uriHandler.openUri("https://kernelsu.org") }) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_launcher_monochrome),
+                        contentDescription = null,
+                    )
+                }
             }
         }
     }
